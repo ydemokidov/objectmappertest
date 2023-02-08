@@ -1,6 +1,6 @@
 package org.example;
 
-public class Child extends Parent implements IChildFieldKeeper{
+public class Child extends Parent{
 
     public String childField1;
 
@@ -15,12 +15,18 @@ public class Child extends Parent implements IChildFieldKeeper{
         this.childField2 = childField2;
     }
 
-    @Override
+    public String getChildField1() {
+        return childField1;
+    }
+
     public void setChildField1(String childField1) {
         this.childField1 = childField1;
     }
 
-    @Override
+    public int getChildField2() {
+        return childField2;
+    }
+
     public void setChildField2(int childField2) {
         this.childField2 = childField2;
     }
