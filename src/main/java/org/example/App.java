@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
 import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Hello world!
@@ -14,6 +16,7 @@ public class App
 {
     public static void main( String[] args ) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
+
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
@@ -43,5 +46,15 @@ public class App
 
         String parentString2 = mapper.writeValueAsString(parent2);
         System.out.println("From grandChild: "+parentString2);
+
+        JSONArray jsonArr = new JSONArray(parentString2);
+        JSONObject obj = jsonArr.getJSONObject(1);
+        System.out.println("From JSON: "+ obj.toString());
+
+        ObjectMapper mapper2 = new ObjectMapper();
+        GrandChild grandChild3 = mapper2.readValue(obj.toString(),GrandChild.class);
+
+        String resultGrandChild = mapper2.writeValueAsString(grandChild3);
+        System.out.println("After re-reading without typing: "+ resultGrandChild);
     }
 }
