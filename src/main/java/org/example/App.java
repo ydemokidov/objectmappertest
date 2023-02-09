@@ -17,7 +17,6 @@ public class App
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
 
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
-                .allowIfSubType("com.baeldung.jackson.inheritance")
                 .allowIfSubType(Child.class)
                 .allowIfSubType(GrandChild.class)
                 .build();
